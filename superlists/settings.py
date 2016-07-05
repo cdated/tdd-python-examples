@@ -22,10 +22,7 @@ SECRET_KEY = 'xp$)g&sbmcnc0fz-43^pb)ia0!w0&d$&3*uae4_=64i&r15=(y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -36,6 +33,11 @@ TEMPLATES = [
                 'templates',
             ],
             'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.contrib.auth.context_processors.auth',
+                ]
+            }
         },
 ]
 
