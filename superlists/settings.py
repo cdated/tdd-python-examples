@@ -29,6 +29,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [
+                'templates',
+            ],
+            'APP_DIRS': True,
+        },
+]
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'lists',
 )
 
 MIDDLEWARE_CLASSES = (
