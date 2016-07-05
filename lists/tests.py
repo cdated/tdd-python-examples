@@ -15,7 +15,7 @@ class HomePageTest(TestCase):
     def test_home_page_returns_correct_html(self):
         request = HttpRequest()
         response = home_page(request)
-        expected_html = render_to_string('home.html')
+        expected_html = render_to_string('home.html', request=request)
         content = response.content.decode()
         self.assertEqual(content, expected_html)
 
@@ -34,7 +34,8 @@ class HomePageTest(TestCase):
         # Replace items in template and compare with actual
         expected_html = render_to_string(
                 'home.html',
-                {'new_item_text': 'A new list item'}
+                {'new_item_text': 'A new list item'},
+                request=request
         )
         self.assertEqual(response.content.decode(), expected_html)
 
@@ -56,4 +57,4 @@ class itemModelTest(TestCase):
         second_saved_item = saved_items[1]
 
         self.assertEqual(first_saved_item.text, 'The first (ever) list item')
-        self.assertEqual(first_saved_item.text, 'Item the second')
+        self.assertEqual(second_saved_item.text, 'Item the second')
