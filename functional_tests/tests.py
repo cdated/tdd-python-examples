@@ -86,7 +86,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         ## We use a new browser session to make sure that no information
         ## of Edith's is coming through from cookies etc
-        self.tearDown()
+        self.browser.quit()
         self.setUp()
 
         # Francis visits the home page. There is no sign of Edith's list
@@ -99,7 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
         # He is less interesting than Edith...
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
-        inputbox2.send_keys(Keys.ENTER)
+        inputbox.send_keys(Keys.ENTER)
         # Pause for redirect
         time.sleep(1)
 
