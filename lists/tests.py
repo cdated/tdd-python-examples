@@ -19,11 +19,6 @@ class HomePageTest(TestCase):
         content = response.content.decode()
         self.assertEqual(content, expected_html)
 
-    def test_home_page_only_saves_items_when_necessary(self):
-        request = HttpRequest()
-        home_page(request)
-        self.assertEqual(Item.objects.count(), 0)
-
 
 class ItemModelTest(TestCase):
 
@@ -66,7 +61,7 @@ class NewListTest(TestCase):
     def test_saving_a_POST_request(self):
         # Setup/Exercise
         self.client.post(
-                '/list/new',
+                '/lists/new',
                 data = {'item_text' : 'A new list item'}
         )
 
@@ -78,11 +73,10 @@ class NewListTest(TestCase):
     def test_redirects_after_POST(self):
         # Setup/Exercise
         response = self.client.post(
-                '/list/new',
+                '/lists/new',
                 data = {'item_text' : 'A new list item'}
         )
 
         # Assert
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
+        self.assertRedirects(response, '/lists/the-only-list-in-the-world/')
 
