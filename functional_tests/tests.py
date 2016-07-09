@@ -13,6 +13,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+# django
+from django.test import LiveServerTestCase
+
 caps = DesiredCapabilities.FIREFOX
 
 # Tell the Python bindings to use Marionette.
@@ -21,7 +24,7 @@ caps["marionette"] = True
 # Path to Firefox DevEdition or Nightly.
 caps["binary"] = "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox"
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox(capabilities=caps)
@@ -38,7 +41,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith heard about an online to-do app, she goes to the site
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # She notices the pages title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
