@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 # django
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 caps = DesiredCapabilities.FIREFOX
 
@@ -24,13 +24,14 @@ caps["marionette"] = True
 # Path to Firefox DevEdition or Nightly.
 caps["binary"] = "/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox"
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox(capabilities=caps)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        self.browser.refresh()
         self.browser.quit()
 
     def check_for_row_in_list_table(self, row_text):
